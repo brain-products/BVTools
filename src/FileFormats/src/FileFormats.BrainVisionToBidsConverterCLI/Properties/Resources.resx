@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConsoleOutputConversionFailed" xml:space="preserve">
+    <value>Conversion to BIDS failed:</value>
+  </data>
+  <data name="ConsoleOutputInvalidSyntax" xml:space="preserve">
+    <value>Invalid syntax:</value>
+  </data>
+  <data name="ConsoleOutputUnexpectedError" xml:space="preserve">
+    <value>Unexpected error:</value>
+  </data>
+  <data name="ExceptionTextExpectedEnum" xml:space="preserve">
+    <value>Expected one of:</value>
+  </data>
+  <data name="ExceptionTextExpectedFloat" xml:space="preserve">
+    <value>Expected floating point number</value>
+  </data>
+  <data name="ExceptionTextExpectedValidOptionOrEmpty" xml:space="preserve">
+    <value>Expected one of valid options or empty</value>
+  </data>
+  <data name="ExceptionTextParamDuplicated" xml:space="preserve">
+    <value>Parameter already set:</value>
+  </data>
+  <data name="ExceptionTextParamEmpty" xml:space="preserve">
+    <value>Parameter value cannot be empty:</value>
+  </data>
+  <data name="ExceptionTextParamUnrecognized" xml:space="preserve">
+    <value>Unrecognized parameter:</value>
+  </data>
+  <data name="ExceptionTextParamValueMissing" xml:space="preserve">
+    <value>Parameter has missing value:</value>
+  </data>
+  <data name="ExceptionTextParamValueUnrecognized" xml:space="preserve">
+    <value>Parameter value unrecognized:</value>
+  </data>
+  <data name="ExceptionTextParamZeroOrNegative" xml:space="preserve">
+    <value>Parameter value cannot be zero or negative:</value>
+  </data>
+  <data name="ExceptionTextRequiredParamMissing" xml:space="preserve">
+    <value>Required parameter missing:</value>
+  </data>
+  <data name="HelpMessageAuthors" xml:space="preserve">
+    <value>List of contributors to the study.\n[default: field is not created]\nOPTIONAL field for the dataset_description.json file.</value>
+  </data>
+  <data name="HelpMessageDataset" xml:space="preserve">
+    <value>Name of the dataset.\n[default: empty]\nREQUIRED field for the dataset_description.json file.\nDetailed description of the study shall be provided by the user\nin the README file, found under the root directory of a BIDS dataset.\nFurther modifications after the creation of the BIDS dataset\nshall be entered manually in the CHANGES file,\nfound under the root directory of a BIDS dataset.</value>
+  </data>
+  <data name="HelpMessageDst" xml:space="preserve">
+    <value>Path to store the converted files.</value>
+  </data>
+  <data name="HelpMessageEegReference" xml:space="preserve">
+    <value>Description of the reference scheme and (when applicable) location of the recording reference electrode.\nE.g.: “unipolar reference placed at Cz”, “left mastoid (M1)”, ...\n[default: Unknown]\nREQUIRED field for the *_eeg.json file.</value>
+  </data>
+  <data name="HelpMessageGeneralPurposeParams" xml:space="preserve">
+    <value>Optional general purpose parameters:</value>
+  </data>
+  <data name="HelpMessageHelp" xml:space="preserve">
+    <value>Display brief description of all available parameters or detailed description for a particular parameter.</value>
+  </data>
+  <data name="HelpMessageLicense" xml:space="preserve">
+    <value>Type of license for distributing the dataset (e.g., PD, PDDL, CCO).\n[default: field is not created]\nRECOMMENDED field for the dataset_description.json file.</value>
+  </data>
+  <data name="HelpMessageManufacturer" xml:space="preserve">
+    <value>EEG device manufacturer.\n[default: Brain Products]\nRECOMMENDED field for the *_eeg.json file.</value>
+  </data>
+  <data name="HelpMessageOptionalParams" xml:space="preserve">
+    <value>Optional parameters:</value>
+  </data>
+  <data name="HelpMessageOptionalParamsInCommandline" xml:space="preserve">
+    <value>optional-parameters</value>
+  </data>
+  <data name="HelpMessagePowerLineFreq" xml:space="preserve">
+    <value>Frequency of the power grid at the geographical location of the recording setup.\n[default: 50]\nREQUIRED field for the *_eeg.json file.</value>
+  </data>
+  <data name="HelpMessageRequiredParams" xml:space="preserve">
+    <value>Required parameters:</value>
+  </data>
+  <data name="HelpMessageRequiredParamsInCommandline" xml:space="preserve">
+    <value>required-parameters</value>
+  </data>
+  <data name="HelpMessageSession" xml:space="preserve">
+    <value>Label to group files recorded in a given session for a given participant.\n[default: single session]</value>
+  </data>
+  <data name="HelpMessageSrc" xml:space="preserve">
+    <value>Path to and name of the BrainVision header file (*.vhdr).</value>
+  </data>
+  <data name="HelpMessageSubject" xml:space="preserve">
+    <value>Label/ID of participant in the study.\n[default: auto-incremented 2-digit number (sub-01, sub-02, ...)]</value>
+  </data>
+  <data name="HelpMessageTask" xml:space="preserve">
+    <value>Name of the activity performed by the participant.\n[default: &lt;input_filename&gt;]\nREQUIRED field for the *_eeg.json file.</value>
+  </data>
+  <data name="HelpMessageUsage" xml:space="preserve">
+    <value>Usage:</value>
+  </data>
+  <data name="HelpMessageVersion" xml:space="preserve">
+    <value>Display application version.</value>
+  </data>
+</root>
