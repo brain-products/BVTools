@@ -1,20 +1,44 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Introduction
+
+**BV2BIDS** is a command line tool that creates the EEG-BIDS folder hierarchy from BVCD files.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+To build and deploy, all you need is to download and install the [.NET Core SDK 3.0.101](https://dotnet.microsoft.com/download/dotnet-core/3.0).  
+To start coding, use your preferred editor. You may want to choose one of [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) editions, including the free Community edition.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Usage
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Supported projects targeting:
+- .NET Core App 3.0+
+- .NET Standard 2.1+
+
+Supported language versions:
+- C# 8.0+  
+  Note that all projects use [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references).
+  
+## Build & Run
+
+You should be able to build **BV2BIDS** for any of [OS versions supported by .NET Core](https://github.com/dotnet/core/blob/master/release-notes/3.0/3.0-supported-os.md).
+
+1. Build:
+   ```
+   dotnet build sln/BVTools.sln
+   ```  
+   or
+   ```
+   dotnet build src/FileFormats/src/FileFormats.BrainVisionToBidsConverterCLI/FileFormats.BrainVisionToBidsConverterCLI.csproj
+   ```
+1. Run:
+   ```
+   dotnet run --project src/FileFormats/src/FileFormats.BrainVisionToBidsConverterCLI/FileFormats.BrainVisionToBidsConverterCLI.csproj
+   ```
+1. Publish for _Windows x64_:
+   ```
+   dotnet publish src/FileFormats/src/FileFormats.BrainVisionToBidsConverterCLI/FileFormats.BrainVisionToBidsConverterCLI.csproj -r win-x64 -c "Release" --self-contained=true -p:PublishSingleFile=true -p:ProductId=BrainVisionToBidsConverterCLI
+   ```
+
+# Download
+
+If you just want to use the **BV2BIDS** tool without building it, you can download it directly from [Brain Products](https://www.brainproducts.com/downloads.php?kid=40#dlukat_226) web page.  
+The tool is digitally signed with Brain Products SHA256 certificate in order to guarantee that the code has not been altered or corrupted.
