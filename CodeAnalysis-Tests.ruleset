@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Rules for Security Issues" Description="Code analysis rules for Security Issues." ToolsVersion="14.0">
+  <Include Path="CodeAnalysis.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+    <!-- Identifiers should not contain underscores -->
+    <Rule Id="CA1707" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.Features" RuleNamespace="Microsoft.CodeAnalysis.CSharp.Features">
+    <!-- Use local function -->
+    <Rule Id="IDE0039" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <!--Do not pass literals as localized parameters -->
+    <Rule Id="CA1303" Action="None" />
+  </Rules>
+</RuleSet>

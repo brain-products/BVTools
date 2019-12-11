@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Rules for Security Issues" Description="Code analysis rules for Security Issues." ToolsVersion="14.0">
+  <Rules AnalyzerId="Desktop.Analyzers" RuleNamespace="Desktop.Analyzers">
+    <!-- Do not use Weak/Broken cryptographic algorithms -->
+    <Rule Id="CA5350" Action="Error" />
+    <!-- Do Not Use broken cryptographic algorithms -->
+    <Rule Id="CA5351" Action="Error" />
+    <!-- Do not catch corrupted process state exceptions -->
+    <Rule Id="CA2153" Action="Error"/>
+  </Rules>
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <!-- Non disposable class owns disposable fields -->
+    <Rule Id="CA1001" Action="None" />
+    <!-- Specify attribute usage on attribute -->
+    <Rule Id="CA1018" Action="Error" />
+    <!-- Overload comparison operators when implementing System.IComparable -->
+    <Rule Id="CA1036" Action="None" />
+    <!-- Type parameters names should be prefixed with T -->
+    <Rule Id="CA1715" Action="None" />
+    <!-- Disposable Fields should be disposed -->
+    <Rule Id="CA2213" Action="None" />
+    <!-- Serializable type doesn't have a serialization constructor -->
+    <Rule Id="CA2229" Action="Error" />
+    <!-- Serializable type has non serializable field -->
+    <Rule Id="CA2235" Action="None" />
+    <!-- Overload operator equals when overriding ValueType.Equals -->
+    <Rule Id="CA2231" Action="None" />
+    <!-- Add [Serializable] to types that implement ISerializable -->
+    <Rule Id="CA2237" Action="None" />
+
+    <!-- Rethrowing caught exception changes stack information -->
+    <Rule Id="CA2200" Action="None"/>
+
+    <!-- Specify marshaling for P/Invoke string arguments -->
+    <Rule Id="CA2101" Action="None" />
+    <!-- P/Invoke method should not be visible -->
+    <Rule Id="CA1401" Action="None" />
+
+    <!-- Do not call overridable methods in constructors -->
+    <Rule Id="CA2214" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="System.Runtime.Analyzers" RuleNamespace="System.Runtime.Analyzers">
+    <!-- Do not lock on objects with weak identity -->
+    <Rule Id="CA2002" Action="Error" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+    <!-- Disable Validate arguments of public methods -->
+    <Rule Id="CA1062" Action="None" />
+  </Rules>
+</RuleSet>
