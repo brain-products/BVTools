@@ -1,49 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat;
 using BrainVision.Lab.FileFormats.Properties;
 using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat;
 
-namespace BrainVision.Lab.FileFormats.Internal.Converters
+namespace BrainVision.Lab.FileFormats.Internal.Converters;
+
+internal static class EegChannelsConverter
 {
-    internal static class EegChannelsConverter
+    public static EegChannelCollection? Collect(BrainVisionPackage filesContent)
     {
-        public static EegChannelCollection? Collect(BrainVisionPackage filesContent)
+        IHeaderFileContentVer1 headerContent = filesContent.HeaderFileContent;
+        IList<ChannelInfo>? inputChannels = headerContent.GetChannelInfos();
+        if (inputChannels == null)
+            return null;
+
+        double samplingFrequency = Common.GetSamplingFrequencyFromSamplingInterval(headerContent.SamplingInterval!.Value);
+
+        EegChannelCollection eegChannels = new();
+
+        foreach (ChannelInfo inputChannel in inputChannels)
         {
-            IHeaderFileContentVer1 headerContent = filesContent.HeaderFileContent;
-            List<ChannelInfo>? inputChannels = headerContent.GetChannelInfos();
-            if (inputChannels == null)
-                return null;
+            PrefixedUnit? channelUnits = Common.ConvertTextToPrefixedUnit(inputChannel.Unit) ?? throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, Resources.UrecognizedUnitExceptionMessage, inputChannel.Unit, inputChannel.Name));
 
-            double samplingFrequency = Common.GetSamplingFrequencyFromSamplingInterval(headerContent.SamplingInterval!.Value);
-
-            EegChannelCollection eegChannels = new EegChannelCollection();
-
-            foreach (ChannelInfo inputChannel in inputChannels)
+            EegChannel eegChannel = new(
+                //REQUIRED
+                name: inputChannel.Name,
+                type: ChannelType.EEG,
+                units: channelUnits.Value)
             {
-                PrefixedUnit? channelUnits = Common.ConvertTextToPrefixedUnit(inputChannel.Unit);
-                if (channelUnits == null)
-                    throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, Resources.UrecognizedUnitExceptionMessage, inputChannel.Unit, inputChannel.Name));
+                //OPTIONAL
+                SamplingFrequency = samplingFrequency,
+                //Reference = null,
+                //LowCutoff = null,
+                //HighCutoff = null,
+                //Notch = null,
+            };
 
-                EegChannel eegChannel = new EegChannel(
-                    //REQUIRED
-                    name: inputChannel.Name,
-                    type: ChannelType.EEG,
-                    units: channelUnits.Value)
-                {
-                    //OPTIONAL
-                    SamplingFrequency = samplingFrequency,
-                    //Reference = null,
-                    //LowCutoff = null,
-                    //HighCutoff = null,
-                    //Notch = null,
-                };
-
-                eegChannels.Add(eegChannel);
-            }
-
-            return eegChannels;
+            eegChannels.Add(eegChannel);
         }
+
+        return eegChannels;
     }
 }

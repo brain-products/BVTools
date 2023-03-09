@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
+﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
+
+internal static class EegChannelsWriter
 {
-    internal static class EegChannelsWriter
+    public static async Task SaveAsync(string filePath, EegChannelCollection channels)
     {
-        public static void Save(string filePath, EegChannelCollection channels)
-        {
-            List<EegChannelTsv> list = channels.ConvertAll(p => new EegChannelTsv(p));
-            TsvTableWriter<EegChannelTsv>.Save(filePath, EegChannelTsv.TsvIdentifiers, list);
-        }
+        List<EegChannelTsv> list = channels.ConvertAll(p => new EegChannelTsv(p));
+        await TsvTableWriter<EegChannelTsv>.SaveAsync(filePath, EegChannelTsv.TsvIdentifiers, list).ConfigureAwait(false);
     }
 }

@@ -1,123 +1,118 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Globalization;
 using BrainVision.Lab.FileFormats.PublicDomain.XSV.Properties;
 using BrainVision.Lab.SystemExt.Internal;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.XSV.Internal
+namespace BrainVision.Lab.FileFormats.PublicDomain.XSV.Internal;
+
+internal sealed class XsvReader<T> : IXsvReader<T> where T : IConvertible
 {
-    internal class XsvReader<T> : IXsvReader<T> where T : IConvertible
+    private readonly StreamReader _stream;
+    private readonly char _separator;
+    private readonly bool _hasHeader;
+    private readonly string[]? _header; // is null when no header is requested to read
+    private readonly Type _tType = typeof(T);
+    private readonly Type[] _supportedTypes = { typeof(int), typeof(double), typeof(string) };
+
+    public XsvReader(string fileName, char separator, bool hasHeader)
     {
-        private readonly StreamReader _stream;
-        private readonly char _separator;
-        private readonly bool _hasHeader;
-        private readonly string[]? _header = null; // is null when no header is requested to read
-        private readonly Type _tType = typeof(T);
-        private readonly Type[] _supportedTypes = { typeof(int), typeof(double), typeof(string) };
+        if (!_supportedTypes.Any(type => type == _tType))
+            CommonExceptions.ThrowNotSupported($"{Resources.UnsupportedType} ({_tType})");
 
-        public XsvReader(string fileName, char separator, bool hasHeader)
+        _stream = new StreamReader(fileName);
+        _separator = separator;
+        _hasHeader = hasHeader;
+
+        if (_hasHeader)
         {
-            if (!_supportedTypes.Any(type => type == _tType))
-                CommonExceptions.ThrowNotSupported($"{Resources.UnsupportedType} ({_tType.ToString()})");
+            string? headerLine = _stream.ReadLine();
+            _header = headerLine != null ? headerLine.Split(_separator) : Array.Empty<string>();
+        }
+    }
 
-            _stream = new StreamReader(fileName);
-            _separator = separator;
-            _hasHeader = hasHeader;
+    public void Dispose() => _stream.Dispose();
 
-            if (_hasHeader)
-            {
-                string? headerLine = _stream.ReadLine();
-                _header = headerLine != null ? headerLine.Split(_separator) : Array.Empty<string>();
-            }
+    /// <summary>
+    /// returns null only when no header was requested to read
+    /// </summary>
+    public IReadOnlyList<string>? HeaderRow => _header;
+
+    public async Task<IList<T[]>> ReadToEndAsync()
+    {
+        List<T[]> rows = new();
+
+        await foreach (T[] row in EnumerateRowsAsync())
+            rows.Add(row);
+
+        return rows;
+    }
+
+    public async IAsyncEnumerable<T[]> EnumerateRowsAsync()
+    {
+        int lineNumber = -1;
+        int expectedRowItemsLength = -1;
+
+        if (_hasHeader)
+        {
+            expectedRowItemsLength = _header == null ? 0 : _header.Length;
+            ++lineNumber;
         }
 
-        public void Dispose() => _stream.Dispose();
-
-        /// <summary>
-        /// returns null only when no header was requested to read
-        /// </summary>
-        public IReadOnlyList<string>? HeaderRow => _header;
-
-        public List<T[]> ReadToEnd()
+        string? line;
+        while ((line = await _stream.ReadLineAsync().ConfigureAwait(false)) != null)
         {
-            List<T[]> rows = new List<T[]>();
+            ++lineNumber;
 
-            foreach (T[] row in EnumerateRows())
-                rows.Add(row);
+            string[] stringRowItems = line.Split(_separator);
 
-            return rows;
+            if (expectedRowItemsLength < 0)
+                expectedRowItemsLength = stringRowItems.Length;
+
+            if (stringRowItems.Length != expectedRowItemsLength)
+                throw new InvalidXsvFileFormatException(lineNumber,
+                    string.Format(CultureInfo.InvariantCulture, Resources.RowHasIncorrectNumberOfItems, new object[] { stringRowItems.Length, expectedRowItemsLength }));
+
+            if (!TryConvert(stringRowItems, out T[] rowItems))
+                throw new InvalidXsvFileFormatException(lineNumber, Resources.RowHasIncorrectFormat);
+
+            yield return rowItems;
         }
+    }
 
-        public IEnumerable<T[]> EnumerateRows()
+    private bool TryConvert(string[] stringRowItems, out T[] rowItems)
+    {
+        rowItems = new T[stringRowItems.Length];
+
+        for (int i = 0; i < stringRowItems.Length; ++i)
         {
-            int lineNumber = -1;
-            int expectedRowItemsLength = -1;
+            string item = stringRowItems[i];
 
-            if (_hasHeader)
+            T tValue;
+            if (_tType == typeof(int))
             {
-                expectedRowItemsLength = _header == null ? 0 : _header.Length;
-                ++lineNumber;
-            }
-
-            string line;
-            while ((line = _stream.ReadLine()) != null)
-            {
-                ++lineNumber;
-
-                string[] stringRowItems = line.Split(_separator);
-
-                if (expectedRowItemsLength < 0)
-                    expectedRowItemsLength = stringRowItems.Length;
-
-                if (stringRowItems.Length != expectedRowItemsLength)
-                    throw new InvalidXsvFileFormatException(lineNumber,
-                        string.Format(CultureInfo.InvariantCulture, Resources.RowHasIncorrectNumberOfItems, new object[] { stringRowItems.Length, expectedRowItemsLength }));
-
-                if (!TryConvert(stringRowItems, out T[] rowItems))
-                    throw new InvalidXsvFileFormatException(lineNumber, Resources.RowHasIncorrectFormat);
-
-                yield return rowItems;
-            }
-        }
-
-        private bool TryConvert(string[] stringRowItems, out T[] rowItems)
-        {
-            rowItems = new T[stringRowItems.Length];
-
-            for (int i = 0; i < stringRowItems.Length; ++i)
-            {
-                string item = stringRowItems[i];
-
-                T tValue;
-                if (_tType == typeof(int))
-                {
-                    if (int.TryParse(item, NumberStyles.Integer, CultureInfo.InvariantCulture, out int val))
-                        tValue = (T)(val as IConvertible); // Warning! this causes boxing
-                    else
-                        return false;
-                }
-                else if (_tType == typeof(double))
-                {
-                    if (double.TryParse(item, NumberStyles.Float, CultureInfo.InvariantCulture, out double val))
-                        tValue = (T)(val as IConvertible); // Warning! this causes boxing
-                    else
-                        return false;
-                }
-                else if (_tType == typeof(string))
-                {
-                    tValue = (T)(item as IConvertible);
-                }
+                if (int.TryParse(item, NumberStyles.Integer, CultureInfo.InvariantCulture, out int val))
+                    tValue = (T)(val as IConvertible); // Warning! this causes boxing
                 else
-                {
-                    throw new NotImplementedException(); // should never happen
-                }
-
-                rowItems[i] = tValue;
+                    return false;
+            }
+            else if (_tType == typeof(double))
+            {
+                if (double.TryParse(item, NumberStyles.Float, CultureInfo.InvariantCulture, out double val))
+                    tValue = (T)(val as IConvertible); // Warning! this causes boxing
+                else
+                    return false;
+            }
+            else if (_tType == typeof(string))
+            {
+                tValue = (T)(item as IConvertible);
+            }
+            else
+            {
+                throw new NotImplementedException(); // should never happen
             }
 
-            return true;
+            rowItems[i] = tValue;
         }
+
+        return true;
     }
 }

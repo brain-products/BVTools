@@ -1,46 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal
-{
-    internal class EegElectrodeTsv : IConvertibleToStringTable
-    {
-        private readonly EegElectrode _m;
-        public EegElectrodeTsv(EegElectrode eegElectrode)
-            => _m = eegElectrode;
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal;
 
-        private static readonly string[] s_tsvIdentifiers = new string[]
+internal sealed class EegElectrodeTsv : IConvertibleToStringTable
+{
+    private readonly EegElectrode _m;
+    public EegElectrodeTsv(EegElectrode eegElectrode)
+        => _m = eegElectrode;
+
+    private static readonly string[] s_tsvIdentifiers = new string[]
+    {
+        "name",
+        "x",
+        "y",
+        "z",
+        "type",
+        "material",
+        "impedance",
+    };
+
+    public static IReadOnlyList<string> TsvIdentifiers => s_tsvIdentifiers;
+
+    public List<string?> ToList()
+    {
+        List<string?> items = new()
         {
-            "name",
-            "x",
-            "y",
-            "z",
-            "type",
-            "material",
-            "impedance",
+            //REQUIRED
+            _m.Name,
+            _m.X.ToString(CultureInfo.InvariantCulture),
+            _m.Y.ToString(CultureInfo.InvariantCulture),
+            _m.Z.ToString(CultureInfo.InvariantCulture),
+            //RECOMMENDED
+            _m.Type,
+            _m.Material,
+            _m.Impedance?.ToString(CultureInfo.InvariantCulture),
         };
 
-        public static IReadOnlyList<string> TsvIdentifiers => s_tsvIdentifiers;
+        Debug.Assert(items.Count == s_tsvIdentifiers.Length);
 
-        public List<string?> ToList()
-        {
-            List<string?> items = new List<string?>
-            {
-                //REQUIRED
-                _m.Name,
-                _m.X.ToString(CultureInfo.InvariantCulture),
-                _m.Y.ToString(CultureInfo.InvariantCulture),
-                _m.Z.ToString(CultureInfo.InvariantCulture),
-                //RECOMMENDED
-                _m.Type,
-                _m.Material,
-                _m.Impedance?.ToString(CultureInfo.InvariantCulture),
-            };
-
-            Debug.Assert(items.Count == s_tsvIdentifiers.Length);
-
-            return items;
-        }
+        return items;
     }
 }

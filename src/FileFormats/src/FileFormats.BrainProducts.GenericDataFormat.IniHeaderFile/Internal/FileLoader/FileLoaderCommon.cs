@@ -1,24 +1,22 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal
+namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal;
+
+internal static class FileLoaderCommon
 {
-    internal static class FileLoaderCommon
+    public static bool TryParseChannelNumber(string keyName, out int channelNumber)
     {
-        public static bool TryParseChannelNumber(string keyName, out int channelNumber)
+        if (keyName.StartsWith(Definitions.KeyChPlaceholder, true, CultureInfo.InvariantCulture))
         {
-            if (keyName.StartsWith(Definitions.KeyChPlaceholder, true, CultureInfo.InvariantCulture))
-            {
-                string textExpectedToContainChannelNumber = keyName.Substring(Definitions.KeyChPlaceholder.Length);
-                if (int.TryParse(textExpectedToContainChannelNumber, out channelNumber))
-                    return true;
-            }
-
-            channelNumber = -1;
-            return false;
+            string textExpectedToContainChannelNumber = keyName[Definitions.KeyChPlaceholder.Length..];
+            if (int.TryParse(textExpectedToContainChannelNumber, out channelNumber))
+                return true;
         }
 
-        public static string ConcatenateWithNewLine(string? lineA, string lineB) =>
-            (lineA == null) ? lineB : $"{lineA}{Environment.NewLine}{lineB}";
+        channelNumber = -1;
+        return false;
     }
+
+    public static string ConcatenateWithNewLine(string? lineA, string lineB) =>
+        (lineA == null) ? lineB : $"{lineA}{Environment.NewLine}{lineB}";
 }

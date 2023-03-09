@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
+
+internal sealed class JsonStringPrefixedUnitConverter : JsonConverter<PrefixedUnit>
 {
-    internal class JsonStringPrefixedUnitConverter : JsonConverter<PrefixedUnit>
+    public override PrefixedUnit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override PrefixedUnit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        {
-            throw new NotImplementedException(); // should never happen, object is never deserialized
+        throw new NotImplementedException(); // should never happen, object is never deserialized
 
         // The code below is a correct implementation of Read() method.
         // It is commented because parsing a value is not needed right now but may be used in the future.
@@ -26,9 +25,8 @@ namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO
         //        // The message is copied from JSON string converter: "The JSON value could not be converted to System.String".
         //        throw new JsonException($"{Resources.JsonValueCouldNotBeConvertedTo} {typeToConvert}.", e);
         //    }
-        }
-
-        public override void Write(Utf8JsonWriter writer, PrefixedUnit value, JsonSerializerOptions options) =>
-            writer.WriteStringValue(value.ToString());
     }
+
+    public override void Write(Utf8JsonWriter writer, PrefixedUnit value, JsonSerializerOptions options) =>
+        writer.WriteStringValue(value.ToString());
 }

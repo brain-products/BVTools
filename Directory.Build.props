@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
 
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors>Brain Products Analysis Software Team</Authors>
+    <Authors>Brain Products BVLab Team</Authors>
     <Company>Brain Products GmbH</Company>
     <Copyright>Copyright© Brain Products GmbH $([System.DateTime]::Now.Year)</Copyright>
   </PropertyGroup>
@@ -61,26 +61,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.3" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
     <!--xunit itself-->
-    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="xunit" Version="2.4.1" />
+    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="xunit" Version="2.4.2" />
     <!--it takes the dependency of nuget package Microsoft.TestPlatform.TestHost which is needed to run the test-->
-    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+
+    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="xunit.runner.console" Version="2.4.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <!--it discovers xUnit tests for Visual Studio-->
-    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="xunit.runner.visualstudio" Version="2.4.1">
+    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <!-- Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage. -->
-    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="coverlet.collector" Version="1.1.0" />
+    <PackageReference Condition="'$(IsTestProject)'=='True'" Include="coverlet.collector" Version="3.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <!-- Code Analysis -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+  <PropertyGroup>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+  </PropertyGroup>
 
 </Project>

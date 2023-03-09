@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>BrainVision.Lab.FileFormats.BrainVisionToBidsConverter</AssemblyName>
     <RootNamespace>BrainVision.Lab.FileFormats</RootNamespace>
   </PropertyGroup>

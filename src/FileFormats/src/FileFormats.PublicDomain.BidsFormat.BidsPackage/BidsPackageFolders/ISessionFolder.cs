@@ -1,12 +1,11 @@
-﻿namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat
+﻿namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat;
+
+public interface ISessionFolder
 {
-    public interface ISessionFolder
-    {
-        #region Properties
-        ISubjectFolder Parent { get; }
-        IEegModalityFolder EegModalityFolder { get; }
-        string? FolderName { get; }
-        string FolderPath { get; }
-        #endregion
-    }
+    #region Properties
+    ISubjectFolder Parent { get; }
+    IEegModalityFolder EegModalityFolder { get; }
+    string? FolderName { get; }
+    string FolderPath { get; }
+    #endregion
 }

@@ -1,42 +1,41 @@
 ﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat;
+
+/// <summary>
+/// The class allows direct access to bids files without creating a bids package.
+/// This may be useful when a file needs to be created/read as a stand alone file.
+/// </summary>
+public static class BidsPackageFiles
 {
-    /// <summary>
-    /// The class allows direct access to bids files without creating a bids package.
-    /// This may be useful when a file needs to be created/read as a stand alone file.
-    /// </summary>
-    public static class BidsPackageFiles
-    {
-        public const string SubjectFolderPrefix = SubjectFolder.FolderPrefix;
-        public const string SessionFolderPrefix = SessionFolder.FolderPrefix;
+    public const string SubjectFolderPrefix = SubjectFolder.FolderPrefix;
+    public const string SessionFolderPrefix = SessionFolder.FolderPrefix;
 
-        #region RootFolder Save
-        public static void SaveDatasetDescriptionFile(string filePath, DatasetDescription datasetDescription)
-            => RootFolder.SaveDatasetDescriptionFile(filePath, datasetDescription);
+    #region RootFolder Save
+    public static async Task SaveDatasetDescriptionFileAsync(string filePath, DatasetDescription datasetDescription)
+        => await RootFolder.SaveDatasetDescriptionFileAsync(filePath, datasetDescription).ConfigureAwait(false);
 
-        public static void SaveReadmeFile(string filePath, string fileContent)
-            => RootFolder.SaveReadmeFile(filePath, fileContent);
+    public static async Task SaveReadmeFileAsync(string filePath, string fileContent)
+        => await RootFolder.SaveReadmeFileAsync(filePath, fileContent).ConfigureAwait(false);
 
-        public static void SaveChangesFile(string filePath, string fileContent)
-            => RootFolder.SaveChangesFile(filePath, fileContent);
-        #endregion
+    public static async Task SaveChangesFileAsync(string filePath, string fileContent)
+        => await RootFolder.SaveChangesFileAsync(filePath, fileContent).ConfigureAwait(false);
+    #endregion
 
-        #region EegModalityFolder Save
-        public static void SaveEegSidecarFile(string filePath, EegSidecar sidecar)
-            => EegModalityFolder.SaveEegSidecarFile(filePath, sidecar);
+    #region EegModalityFolder Save
+    public static async Task SaveEegSidecarFileAsync(string filePath, EegSidecar sidecar)
+        => await EegModalityFolder.SaveEegSidecarFileAsync(filePath, sidecar).ConfigureAwait(false);
 
-        public static void SaveEegChannelsFile(string filePath, EegChannelCollection channels)
-            => EegModalityFolder.SaveEegChannelsFile(filePath, channels);
+    public static async Task SaveEegChannelsFileAsync(string filePath, EegChannelCollection channels)
+        => await EegModalityFolder.SaveEegChannelsFileAsync(filePath, channels).ConfigureAwait(false);
 
-        public static void SaveEegElectrodesFile(string filePath, EegElectrodeCollection electrodes)
-            => EegModalityFolder.SaveEegElectrodesFile(filePath, electrodes);
+    public static async Task SaveEegElectrodesFileAsync(string filePath, EegElectrodeCollection electrodes)
+        => await EegModalityFolder.SaveEegElectrodesFileAsync(filePath, electrodes).ConfigureAwait(false);
 
-        public static void SaveEegCoordinateSystemFile(string filePath, EegCoordinateSystem eegCoordinateSystem)
-            => EegModalityFolder.SaveEegCoordinateSystemFile(filePath, eegCoordinateSystem);
+    public static async Task SaveEegCoordinateSystemFileAsync(string filePath, EegCoordinateSystem eegCoordinateSystem)
+        => await EegModalityFolder.SaveEegCoordinateSystemFileAsync(filePath, eegCoordinateSystem).ConfigureAwait(false);
 
-        public static void SaveTaskEventsFile(string filePath, TaskEventCollection taskEvents)
-            => EegModalityFolder.SaveTaskEventsFile(filePath, taskEvents);
-        #endregion
-    }
+    public static async Task SaveTaskEventsFileAsync(string filePath, TaskEventCollection taskEvents)
+        => await EegModalityFolder.SaveTaskEventsFileAsync(filePath, taskEvents).ConfigureAwait(false);
+    #endregion
 }

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>BrainVision.Lab.FileFormats.PublicDomain.XSV.XsvPackage</AssemblyName>
     <RootNamespace>BrainVision.Lab.FileFormats.PublicDomain.XSV</RootNamespace>
   </PropertyGroup>
 
-  <Import Project="..\..\..\SystemExt\src\SystemExt.Exceptions\SystemExt.Exceptions.projitems" Label="Shared" />
+  <Import Project="..\..\..\SystemExt\src\SystemExt.Exceptions.Internal\SystemExt.Exceptions.Internal.projitems" Label="Shared" />
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

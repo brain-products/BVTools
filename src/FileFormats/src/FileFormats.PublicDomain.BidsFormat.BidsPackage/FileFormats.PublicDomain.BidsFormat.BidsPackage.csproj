@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.BidsPackage</AssemblyName>
     <RootNamespace>BrainVision.Lab.FileFormats.PublicDomain.BidsFormat</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SystemExt\src\SystemExt.Text.Json.Serialization.Converters\SystemExt.Text.Json.Serialization.Converters.csproj" />
+    <ProjectReference Include="..\..\..\SystemExt\src\SystemExt.Text.Json\SystemExt.Text.Json.csproj" />
     <ProjectReference Include="..\FileFormats.PublicDomain.XSV.XsvPackage\FileFormats.PublicDomain.XSV.XsvPackage.csproj" />
   </ItemGroup>
 

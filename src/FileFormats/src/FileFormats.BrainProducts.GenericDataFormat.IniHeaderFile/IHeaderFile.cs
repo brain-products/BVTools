@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat
+public interface IHeaderFile : IAsyncDisposable
 {
-    public interface IHeaderFile : IDisposable
-    {
-        Version Version { get; }
+    Version Version { get; }
 
-        IHeaderFileContentVer1 LoadVer1();
-        void SaveVer1(IHeaderFileContentVer1 header);
-    }
+    Task<IHeaderFileContentVer1> LoadVer1Async();
+    Task SaveVer1Async(IHeaderFileContentVer1 header);
 }

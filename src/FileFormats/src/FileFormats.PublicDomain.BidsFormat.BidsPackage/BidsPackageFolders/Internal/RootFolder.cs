@@ -1,63 +1,61 @@
-﻿using System.IO;
-using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
+﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal;
+
+internal sealed class RootFolder : IRootFolder
 {
-    internal class RootFolder : IRootFolder
+    private readonly DatasetInfo _datasetInfo;
+    internal RootFolder(DatasetInfo datasetInfo)
     {
-        private readonly DatasetInfo _datasetInfo;
-        internal RootFolder(DatasetInfo datasetInfo)
-        {
-            _datasetInfo = datasetInfo;
-            SubjectFolder = new SubjectFolder(this, datasetInfo);
-        }
-
-        #region Properties
-        public string FolderPath => _datasetInfo.Root;
-        public ISubjectFolder SubjectFolder { get; }
-        #endregion
-
-        #region File Names
-        public string DatasetDescriptionFileName { get; } = "dataset_description.json";
-        public string ReadmeFileName { get; } = "README";
-        public string ChangesFileName { get; } = "CHANGES";
-        #endregion
-
-        #region File Paths
-        public string DatasetDescriptionFilePath => Path.Combine(FolderPath, DatasetDescriptionFileName);
-        public string ReadmeFilePath => Path.Combine(FolderPath, ReadmeFileName);
-        public string ChangesFilePath => Path.Combine(FolderPath, ChangesFileName);
-        #endregion
-
-        #region Save
-        public void SaveDatasetDescriptionFile(DatasetDescription datasetDescription)
-            => SaveDatasetDescriptionFile(DatasetDescriptionFilePath, datasetDescription);
-
-        public void SaveReadmeFile(string fileContent)
-            => SaveReadmeFile(ReadmeFilePath, fileContent);
-
-        public void SaveChangesFile(string fileContent)
-            => SaveChangesFile(ChangesFilePath, fileContent);
-        #endregion
-
-        #region Static Save
-        public static void SaveDatasetDescriptionFile(string filePath, DatasetDescription datasetDescription)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            DatasetDescriptionWriter.Save(filePath, datasetDescription);
-        }
-
-        public static void SaveReadmeFile(string filePath, string fileContent)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            ReadmeWriter.Save(filePath, fileContent);
-        }
-
-        public static void SaveChangesFile(string filePath, string fileContent)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            ChangesWriter.Save(filePath, fileContent);
-        }
-        #endregion
+        _datasetInfo = datasetInfo;
+        SubjectFolder = new SubjectFolder(this, datasetInfo);
     }
+
+    #region Properties
+    public string FolderPath => _datasetInfo.Root;
+    public ISubjectFolder SubjectFolder { get; }
+    #endregion
+
+    #region File Names
+    public string DatasetDescriptionFileName { get; } = "dataset_description.json";
+    public string ReadmeFileName { get; } = "README";
+    public string ChangesFileName { get; } = "CHANGES";
+    #endregion
+
+    #region File Paths
+    public string DatasetDescriptionFilePath => Path.Combine(FolderPath, DatasetDescriptionFileName);
+    public string ReadmeFilePath => Path.Combine(FolderPath, ReadmeFileName);
+    public string ChangesFilePath => Path.Combine(FolderPath, ChangesFileName);
+    #endregion
+
+    #region Save
+    public async Task SaveDatasetDescriptionFileAsync(DatasetDescription datasetDescription)
+        => await SaveDatasetDescriptionFileAsync(DatasetDescriptionFilePath, datasetDescription).ConfigureAwait(false);
+
+    public async Task SaveReadmeFileAsync(string fileContent)
+        => await SaveReadmeFileAsync(ReadmeFilePath, fileContent).ConfigureAwait(false);
+
+    public async Task SaveChangesFileAsync(string fileContent)
+        => await SaveChangesFileAsync(ChangesFilePath, fileContent).ConfigureAwait(false);
+    #endregion
+
+    #region Static Save
+    public static async Task SaveDatasetDescriptionFileAsync(string filePath, DatasetDescription datasetDescription)
+    {
+        DirectoryExt.CreateDirectory(Path.GetDirectoryName(filePath));
+        await DatasetDescriptionWriter.SaveAsync(filePath, datasetDescription).ConfigureAwait(false);
+    }
+
+    public static async Task SaveReadmeFileAsync(string filePath, string fileContent)
+    {
+        DirectoryExt.CreateDirectory(Path.GetDirectoryName(filePath));
+        await ReadmeWriter.SaveAsync(filePath, fileContent).ConfigureAwait(false);
+    }
+
+    public static async Task SaveChangesFileAsync(string filePath, string fileContent)
+    {
+        DirectoryExt.CreateDirectory(Path.GetDirectoryName(filePath));
+        await ChangesWriter.SaveAsync(filePath, fileContent).ConfigureAwait(false);
+    }
+    #endregion
 }

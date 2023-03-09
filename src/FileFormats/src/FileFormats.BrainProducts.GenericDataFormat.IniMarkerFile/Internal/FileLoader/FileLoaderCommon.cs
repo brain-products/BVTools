@@ -1,10 +1,7 @@
-﻿using System;
+﻿namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal
+internal static class FileLoaderCommon
 {
-    internal static class FileLoaderCommon
-    {
-        public static string ConcatenateWithNewLine(string? lineA, string lineB) =>
-            (lineA == null) ? lineB : $"{lineA}{Environment.NewLine}{lineB}";
-    }
+    public static string ConcatenateWithNewLine(string? lineA, string lineB) =>
+        (lineA == null) ? lineB : $"{lineA}{Environment.NewLine}{lineB}";
 }

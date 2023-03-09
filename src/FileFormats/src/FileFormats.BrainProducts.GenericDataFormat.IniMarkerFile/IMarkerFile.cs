@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat
+public interface IMarkerFile : IAsyncDisposable
 {
-    public interface IMarkerFile : IDisposable
-    {
-        Version Version { get; }
+    Version Version { get; }
 
-        IMarkerFileContentVer1 LoadVer1();
-        void SaveVer1(IMarkerFileContentVer1 header);
-    }
+    Task<IMarkerFileContentVer1> LoadVer1Async();
+    Task SaveVer1Async(IMarkerFileContentVer1 header);
 }

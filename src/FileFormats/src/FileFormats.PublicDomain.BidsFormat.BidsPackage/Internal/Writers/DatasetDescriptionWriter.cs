@@ -1,10 +1,9 @@
 ﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
+
+internal static class DatasetDescriptionWriter
 {
-    internal class DatasetDescriptionWriter
-    {
-        public static void Save(string filePath, DatasetDescription datasetDescription)
-            => JsonWriter.Save(filePath, datasetDescription);
-    }
+    public static async Task SaveAsync(string filePath, DatasetDescription datasetDescription)
+        => await JsonWriter.SaveAsync(filePath, datasetDescription).ConfigureAwait(false);
 }

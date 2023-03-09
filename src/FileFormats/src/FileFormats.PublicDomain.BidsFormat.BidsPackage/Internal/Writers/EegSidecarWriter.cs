@@ -1,10 +1,9 @@
 ﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
+
+internal static class EegSidecarWriter
 {
-    internal static class EegSidecarWriter
-    {
-        public static void Save(string filePath, EegSidecar sidecar)
-            => JsonWriter.Save(filePath, sidecar);
-    }
+    public static async Task SaveAsync(string filePath, EegSidecar sidecar)
+        => await JsonWriter.SaveAsync(filePath, sidecar).ConfigureAwait(false);
 }

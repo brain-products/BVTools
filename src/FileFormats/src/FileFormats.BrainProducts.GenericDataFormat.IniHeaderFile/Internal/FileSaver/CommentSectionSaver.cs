@@ -1,18 +1,15 @@
-﻿using System.IO;
+﻿namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat.Internal
+internal static class CommentSectionSaver
 {
-    internal class CommentSectionSaver
+    public static async Task SaveAsync(StreamWriter writer, IHeaderFileContentVer1 content)
     {
-        public static void Save(StreamWriter writer, IHeaderFileContentVer1 content)
+        if (content.Comment != null)
         {
-            if (content.Comment != null)
-            {
-                writer.WriteLine();
-                writer.WriteLine(IniFormat.FormatSectionName(Definitions.GetSectionName(Definitions.Section.Comment)!));
-                FileSaverCommon.WriteCommentBlock(writer, content.InlinedComments.BelowCommentSection);
-                writer.WriteLine(content.Comment);
-            }
+            await writer.WriteLineAsync().ConfigureAwait(false);
+            await writer.WriteLineAsync(IniFormat.FormatSectionName(Definitions.GetSectionName(Definitions.Section.Comment)!)).ConfigureAwait(false);
+            await FileSaverCommon.WriteCommentBlockAsync(writer, content.InlinedComments.BelowCommentSection).ConfigureAwait(false);
+            await writer.WriteLineAsync(content.Comment).ConfigureAwait(false);
         }
     }
 }

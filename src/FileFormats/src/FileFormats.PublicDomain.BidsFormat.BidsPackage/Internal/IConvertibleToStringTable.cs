@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal
+internal interface IConvertibleToStringTable
 {
-    internal interface IConvertibleToStringTable
-    {
-        List<string?> ToList();
-    }
+    List<string?> ToList();
 }

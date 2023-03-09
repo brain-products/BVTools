@@ -1,10 +1,8 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
-namespace BrainVision.Lab.FileFormats.Internal.Converters
+namespace BrainVision.Lab.FileFormats.Internal.Converters;
+
+internal static class ChangesConverter
 {
-    internal static class ChangesConverter
-    {
-        public static string Collect() => $"1.0.0 {DateTime.Now.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}{Environment.NewLine} - Initial release.";
-    }
+    public static string Collect() => $"1.0.0 {DateTime.Now.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}{Environment.NewLine} - Initial release.";
 }

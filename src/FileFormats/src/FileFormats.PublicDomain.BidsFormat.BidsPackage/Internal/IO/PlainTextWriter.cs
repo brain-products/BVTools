@@ -1,14 +1,17 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
+
+internal static class PlainTextWriter
 {
-    internal static class PlainTextWriter
+    public static async Task SaveAsync(string filePath, string fileContent)
     {
-        public static void Save(string filePath, string fileContent)
+#pragma warning disable CA2000 // Dispose objects before losing scope
+        TextWriter textWriter = new StreamWriter(filePath, false, Encoding.UTF8);
+#pragma warning restore CA2000 // Dispose objects before losing scope
+        await using (textWriter.ConfigureAwait(false))
         {
-            using TextWriter textWriter = new StreamWriter(filePath, false, Encoding.UTF8);
-            textWriter.Write(fileContent);
+            await textWriter.WriteAsync(fileContent).ConfigureAwait(false);
         }
     }
 }

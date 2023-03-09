@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>BrainVision.Lab.FileFormats</RootNamespace>
     <AssemblyName>BV2BIDS</AssemblyName>
     <StartupObject>BrainVision.Lab.FileFormats.Program</StartupObject>

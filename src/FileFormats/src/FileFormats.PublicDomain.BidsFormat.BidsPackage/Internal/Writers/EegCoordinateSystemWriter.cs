@@ -1,10 +1,9 @@
 ﻿using BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.IO;
 
-namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers
+namespace BrainVision.Lab.FileFormats.PublicDomain.BidsFormat.Internal.Writers;
+
+internal static class EegCoordinateSystemWriter
 {
-    internal static class EegCoordinateSystemWriter
-    {
-        public static void Save(string filePath, EegCoordinateSystem eegCoordinateSystem)
-            => JsonWriter.Save(filePath, eegCoordinateSystem);
-    }
+    public static async Task SaveAsync(string filePath, EegCoordinateSystem eegCoordinateSystem)
+        => await JsonWriter.SaveAsync(filePath, eegCoordinateSystem).ConfigureAwait(false);
 }

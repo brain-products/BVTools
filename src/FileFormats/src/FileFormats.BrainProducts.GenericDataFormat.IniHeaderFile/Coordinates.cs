@@ -1,50 +1,43 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat
+namespace BrainVision.Lab.FileFormats.BrainProducts.GenericDataFormat;
+
+[DebuggerDisplay("{Radius},{Theta},{Phi}")]
+public struct Coordinates : IEquatable<Coordinates>
 {
-    [DebuggerDisplay("{Radius},{Theta},{Phi}")]
-    public struct Coordinates : IEquatable<Coordinates>
-    {
-        /// <summary>
-        /// Required
-        /// </summary>
-        public double Radius { get; set; }
+    /// <summary>
+    /// Required
+    /// </summary>
+    public double Radius { get; set; }
 
-        /// <summary>
-        /// Required
-        /// </summary>
-        public double Theta { get; set; }
+    /// <summary>
+    /// Required
+    /// </summary>
+    public double Theta { get; set; }
 
-        /// <summary>
-        /// Required
-        /// </summary>
-        public double Phi { get; set; }
+    /// <summary>
+    /// Required
+    /// </summary>
+    public double Phi { get; set; }
 
-        [ExcludeFromCodeCoverage]
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Coordinates))
-                return false;
+    [ExcludeFromCodeCoverage]
+    public override bool Equals(object? obj)
+        => obj is Coordinates coordinates && Equals(coordinates);
 
-            return Equals((Coordinates)obj);
-        }
+    [ExcludeFromCodeCoverage]
+    public override int GetHashCode() =>
+        HashCode.Combine(Radius, Theta, Phi);
 
-        [ExcludeFromCodeCoverage]
-        public override int GetHashCode() =>
-            Radius.GetHashCode() ^ Theta.GetHashCode() ^ Phi.GetHashCode();
+    [ExcludeFromCodeCoverage]
+    public static bool operator ==(Coordinates left, Coordinates right) =>
+        left.Equals(right);
 
-        [ExcludeFromCodeCoverage]
-        public static bool operator ==(Coordinates left, Coordinates right) =>
-            left.Equals(right);
+    [ExcludeFromCodeCoverage]
+    public static bool operator !=(Coordinates left, Coordinates right) =>
+        !(left == right);
 
-        [ExcludeFromCodeCoverage]
-        public static bool operator !=(Coordinates left, Coordinates right) =>
-            !(left == right);
-
-        [ExcludeFromCodeCoverage]
-        public bool Equals(Coordinates other) =>
-            Radius == other.Radius && Theta == other.Theta && Phi == other.Phi;
-    }
+    [ExcludeFromCodeCoverage]
+    public bool Equals(Coordinates other) =>
+        Radius == other.Radius && Theta == other.Theta && Phi == other.Phi;
 }

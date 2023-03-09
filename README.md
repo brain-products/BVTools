@@ -10,16 +10,15 @@ To start coding, use your preferred editor. You may want to choose one of [Visua
 ## Usage
 
 Supported projects targeting:
-- .NET Core App 3.0+
-- .NET Standard 2.1+
+- .net7.0+
 
 Supported language versions:
-- C# 8.0+  
+- C# 11.0+  
   Note that all projects use [Nullable Reference Types](https://docs.microsoft.com/dotnet/csharp/nullable-references).
   
 ## Build & Run
 
-You should be able to build **BV2BIDS** for any of [OS versions supported by .NET Core](https://github.com/dotnet/core/blob/master/release-notes/3.0/3.0-supported-os.md).
+You should be able to build **BV2BIDS** for any of [OS versions supported by .NET Core](https://github.com/dotnet/core/blob/main/release-notes/7.0/supported-os.md).
 
 1. Build:
    ```
